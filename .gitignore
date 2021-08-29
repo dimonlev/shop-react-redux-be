@@ -1,2 +1,9 @@
+# package directories
 node_modules
-build
+jspm_packages
+
+# Serverless directories
+.serverless
+
+# Webpack directories
+.webpack
