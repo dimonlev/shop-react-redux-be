@@ -1,0 +1,58 @@
+export const products = [
+  {
+    count: 2,
+    description: 'Short Product Description1',
+    id: '7567ec4b-b10c-48c5-9345-fc73c48a80aa',
+    price: 1,
+    title: 'Product1',
+  },
+  {
+    count: 6,
+    description: 'Short Product Description3',
+    id: '7567ec4b-b10c-48c5-9345-fc73c48a80a0',
+    price: 3,
+    title: 'Product3',
+  },
+  {
+    count: 4,
+    description: 'Short Product Description2',
+    id: '7567ec4b-b10c-48c5-9345-fc73c48a80a2',
+    price: 2,
+    title: 'Product2',
+  },
+  {
+    count: 14,
+    description: 'Short Product Description7',
+    id: '7567ec4b-b10c-48c5-9345-fc73c48a80a1',
+    price: 7,
+    title: 'Product7',
+  },
+  {
+    count: 12,
+    description: 'Short Product Description6',
+    id: '7567ec4b-b10c-48c5-9345-fc73c48a80a2',
+    price: 6,
+    title: 'Product6',
+  },
+  {
+    count: 10,
+    description: 'Short Product Description5',
+    id: '7567ec4b-b10c-48c5-9345-fc73348a80a1',
+    price: 5,
+    title: 'Product5',
+  },
+  {
+    count: 8,
+    description: 'Short Product Description1',
+    id: '7567ec4b-b10c-48c5-9445-fc73c48a80a2',
+    price: 4,
+    title: 'Product4',
+  },
+  {
+    count: 16,
+    description: 'Short Product Description8',
+    id: '7567ec4b-b10c-45c5-9345-fc73c48a80a1',
+    price: 8,
+    title: 'Product8',
+  },
+];
