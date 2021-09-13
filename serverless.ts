@@ -3,6 +3,7 @@ import type { AWS } from '@serverless/typescript';
 import getProductsList from '@functions/getProductsList';
 import getProductsById from '@functions/getProductsById';
 import getProductsListPG from '@functions/getProductsListPG';
+import postProductPG from '@functions/postProductPG';
 import 'dotenv';
 
 const serverlessConfiguration: AWS = {
@@ -35,7 +36,12 @@ const serverlessConfiguration: AWS = {
     lambdaHashingVersion: '20201221',
   },
   // import the function via paths
-  functions: { getProductsList, getProductsById, getProductsListPG },
+  functions: {
+    getProductsList,
+    getProductsById,
+    getProductsListPG,
+    postProductPG,
+  },
 };
 
 module.exports = serverlessConfiguration;
