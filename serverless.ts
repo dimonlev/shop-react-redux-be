@@ -2,6 +2,8 @@ import type { AWS } from '@serverless/typescript';
 
 import getProductsList from '@functions/getProductsList';
 import getProductsById from '@functions/getProductsById';
+import getProductsListPG from '@functions/getProductsListPG';
+import 'dotenv';
 
 const serverlessConfiguration: AWS = {
   service: 'shop-react-redux-be',
@@ -33,7 +35,7 @@ const serverlessConfiguration: AWS = {
     lambdaHashingVersion: '20201221',
   },
   // import the function via paths
-  functions: { getProductsList, getProductsById },
+  functions: { getProductsList, getProductsById, getProductsListPG },
 };
 
 module.exports = serverlessConfiguration;
