@@ -1,16 +1,9 @@
 import 'source-map-support/register';
-
-import type { ValidatedEventAPIGatewayProxyEvent } from '@libs/apiGateway';
 import { formatJSONResponse } from '@libs/apiGateway';
 import { middyfy } from '@libs/lambda';
-
-import schema from './schema';
-
 import { Client } from 'pg';
 
-export const getProductsListPG: ValidatedEventAPIGatewayProxyEvent<
-  typeof schema
-> = async (event) => {
+export const getProductsListPG = async () => {
   const { PG_HOST, PG_PORT, PG_DATABASE, PG_USERNAME, PG_PASSWORD } =
     process.env;
   const dbOptions = {
