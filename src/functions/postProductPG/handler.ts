@@ -1,9 +1,12 @@
-import { EventType } from '@functions/EventType';
-import { ProductPostType } from '@functions/ProductPostType';
+import { formatJSONResponse } from '@libs/apiGateway';
 import { middyfy } from '@libs/lambda';
+import { APIGatewayProxyEvent } from 'aws-lambda';
 import { Client } from 'pg';
 
-export const postProductPG = async (event: EventType) => {
+export const postProductPG = async (event: APIGatewayProxyEvent) => {
+  const { title, description, price, count } = JSON.parse(
+    JSON.stringify(event.body)
+  );
   const { PG_HOST, PG_PORT, PG_DATABASE, PG_USERNAME, PG_PASSWORD } =
     process.env;
   const dbOptions = {
@@ -18,28 +21,29 @@ export const postProductPG = async (event: EventType) => {
     connectionTimeoutMillis: 5000,
   };
   const client = new Client(dbOptions);
-  await client.connect();
-  let query = `SELECT * FROM products INNER JOIN stocks ON product_id = id`;
-  const body: ProductPostType = await event.body;
 
   try {
+    await client.connect();
     await client.query(`BEGIN`);
-    await client.query(
-      `
-        WITH insert_data AS (
-            INSERT INTO products (title, description, price) VALUES ('${body.title}', '${body.description}', ${body.price})
-            RETURNING id
-        ),
-        insert_stock AS (INSERT INTO stocks(count,product_id) VALUES (${body.count}, (SELECT id FROM insert_data)))` +
-        query
-    );
+    const product = [title, description, price];
+    const insertProduct =
+      'INSERT INTO products (title, description, price) VALUES ($1, $2, $3) RETURNING id';
+    const { rows: id } = await client.query(insertProduct, product);
+    console.log(product);
+    const counts = [count, id[0].id];
+    const insertProductCount =
+      'INSERT INTO stocks (count, product_id) VALUES ($1, $2)';
+    await client.query(insertProductCount, counts);
+
     await client.query(`COMMIT`);
-    const { rows: data } = await client.query(query);
-    return {
-      body: JSON.stringify(data),
-    };
+    console.log(counts);
+    const { rows: data } = await client.query(
+      `SELECT products.id, products.title, products.price, products.description, stocks.count FROM products INNER JOIN stocks ON products.id=stocks.product_id where products.id='${id[0].id}'`
+    );
+    console.log('data', data[0]);
+    return formatJSONResponse(data[0]);
   } catch (err) {
-    console.error(err);
+    throw new Error(err);
   } finally {
     client.end();
   }
