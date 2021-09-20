@@ -15,17 +15,17 @@ export type ValidatedEventAPIGatewayProxyEvent<S> = Handler<
 >;
 
 export const formatJSONResponse = (
-  product: Product | Product[] | {},
-  statusCode: number = 200,
-  options: { message?: string } = {}
+  product: Product | Product[],
+  statusCode: number = 200
+  // options: { message?: string } = {}
 ) => {
-  const response = options.message ? options : product;
+  // const response = options.message ? options : product;
   return {
+    statusCode,
+    body: JSON.stringify(product),
     headers: {
       'Access-Control-Allow-Origin': '*',
       'Access-Control-Allow-Credentials': true,
     },
-    statusCode,
-    body: JSON.stringify(response),
   };
 };
