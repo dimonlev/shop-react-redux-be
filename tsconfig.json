@@ -13,7 +13,7 @@
     "outDir": "lib"
   },
   "include": [
-    "src/**/*.ts",
+    "product-service/src/**/*.ts",
     "serverless.ts",
     "../epam/temp/pg-client-lambda.ts"
   ],

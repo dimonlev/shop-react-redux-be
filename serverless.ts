@@ -1,9 +1,12 @@
+import {
+  getProductsById,
+  getProductsListPG,
+  imageUpload,
+  postProductPG,
+  getProductsList,
+} from '@functions/index';
 import type { AWS } from '@serverless/typescript';
 
-import getProductsList from '@functions/getProductsList';
-import getProductsById from '@functions/getProductsById';
-import getProductsListPG from '@functions/getProductsListPG';
-import postProductPG from '@functions/postProductPG';
 import 'dotenv';
 
 const serverlessConfiguration: AWS = {
@@ -41,6 +44,7 @@ const serverlessConfiguration: AWS = {
     getProductsById,
     getProductsListPG,
     postProductPG,
+    imageUpload,
   },
 };
 
